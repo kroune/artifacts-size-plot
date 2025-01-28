@@ -87,24 +87,28 @@ def get_artifacts() -> List[Artifact]:
 
 # Функция для построения и сохранения графиков
 def plot_artifact_sizes(artifacts_to_size_map: Dict[str, List[int]]):
-    defaultColor = (115 / 256, 65 / 256, 220 / 256)
-    defaultColor2 = (175 / 256, 150 / 256, 230 / 256)
+    default_color = (115 / 256, 65 / 256, 220 / 256)
+    default_color2 = (175 / 256, 150 / 256, 230 / 256)
     for name, sizes in artifacts_to_size_map.items():
         sizes_mb = [bytes_to_megabytes(sizes[0] - size) for size in sizes]
         plt.subplots(figsize=(10, 4))
-        plt.plot(sizes_mb, color=defaultColor)
-        plt.title(f'{name.removeprefix("NineMensMorris-").removesuffix("-artifact")}', color=defaultColor)
-        plt.xlabel('Artifact Index', color=defaultColor)
+        plt.plot(sizes_mb, color=default_color)
+        plt.title(f'{name.removeprefix("NineMensMorris-").removesuffix("-artifact")}', color=default_color)
+        plt.xlabel('Artifact Index', color=default_color)
         some_range = range(0, len(sizes), 1)
         plt.xticks(some_range)
-        plt.axhline(0, color=defaultColor2, linewidth=0.8, linestyle='--')
-        plt.ylabel('Size (MB)', color=defaultColor)
+        plt.axhline(color=default_color2, linewidth=0.8, label=f'{round(bytes_to_megabytes(sizes[0]), 2)} MB')
+        plt.ylabel('Size changes (MB)', color=default_color)
         plt.grid(False)
-        plt.tick_params(labelcolor=defaultColor)
-        plt.gca().spines['top'].set_edgecolor(defaultColor)
-        plt.gca().spines['bottom'].set_edgecolor(defaultColor)
-        plt.gca().spines['left'].set_edgecolor(defaultColor)
-        plt.gca().spines['right'].set_edgecolor(defaultColor)
+        legend = plt.legend(facecolor=(1, 1, 1, 0), fontsize=15)
+        legend.get_frame().set_alpha(0)
+        for text in legend.get_texts():
+            text.set_color(default_color)
+        plt.tick_params(labelcolor=default_color)
+        plt.gca().spines['top'].set_edgecolor(default_color)
+        plt.gca().spines['bottom'].set_edgecolor(default_color)
+        plt.gca().spines['left'].set_edgecolor(default_color)
+        plt.gca().spines['right'].set_edgecolor(default_color)
         plt.savefig(f'plot-artifacts/{name}_sizes.png', transparent=True)
         plt.close()
 
