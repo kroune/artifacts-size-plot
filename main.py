@@ -1,4 +1,5 @@
 import os
+import subprocess
 from dataclasses import dataclass
 from datetime import datetime
 from typing import List, Optional, Dict
@@ -104,7 +105,7 @@ def plot_artifact_sizes(artifacts_to_size_map: Dict[str, List[int]]):
         plt.gca().spines['bottom'].set_edgecolor(defaultColor)
         plt.gca().spines['left'].set_edgecolor(defaultColor)
         plt.gca().spines['right'].set_edgecolor(defaultColor)
-        plt.savefig(f'{name}_sizes.png', transparent=True)
+        plt.savefig(f'plot-artifacts/{name}_sizes.png', transparent=True)
         plt.close()
 
 
@@ -122,4 +123,6 @@ for name in artifactsToSizeMap:
     print("")
     print("")
     print("")
+subprocess.run(["mkdir", "plot-artifacts"])
 plot_artifact_sizes(artifactsToSizeMap)
+subprocess.run(["cp", "-rf", "plot-artifacts/", "/"])
