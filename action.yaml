@@ -1,0 +1,20 @@
+name: "Plot artifacts size"
+description: "This action allows you to draw some plots"
+author: kroune
+
+inputs:
+  github-token:
+    description: "github auth token"
+    required: true
+  repository-owner:
+    description: "name of the repository owner"
+    required: true
+  repository-name:
+    description: "name of the repository"
+    required: true
+
+runs:
+  using: python
+  steps:
+    - run: ${{ github.action_path }}/main.py
+      shell: python
