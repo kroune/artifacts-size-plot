@@ -14,7 +14,11 @@ inputs:
     required: true
 
 runs:
-  using: python
+  using: "composite"
   steps:
-    - run: ${{ github.action_path }}/main.py
-      shell: python
+    - run: python ${{ github.action_path }}/main.py
+      shell: bash
+      env:
+        INPUT_GITHUB_TOKEN: ${{ inputs.github-token }}
+        INPUT_REPOSITORY_OWNER: ${{ inputs.repository-owner }}
+        INPUT_REPOSITORY_NAME: ${{ inputs.repository-name }}
