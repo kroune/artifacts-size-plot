@@ -125,4 +125,5 @@ for name in artifactsToSizeMap:
     print("")
 subprocess.run(["mkdir", "plot-artifacts"])
 plot_artifact_sizes(artifactsToSizeMap)
-subprocess.run(["cp", "-rf", "plot-artifacts/", "/"])
+home = os.environ['HOME']
+subprocess.run(["cp", "-rf", "plot-artifacts/", home])
