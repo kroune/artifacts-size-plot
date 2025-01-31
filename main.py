@@ -10,6 +10,8 @@ import requests
 GITHUB_TOKEN = os.environ['INPUT_GITHUB_TOKEN']
 REPO_OWNER = os.environ['INPUT_REPOSITORY_OWNER']
 REPO_NAME = os.environ['INPUT_REPOSITORY_NAME']
+REMOVE_PREFIX = os.environ['INPUT_REMOVE_PREFIX']
+REMOVE_POSTFIX = os.environ['INPUT_REMOVE_POSTFIX']
 
 url = f'https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/actions/artifacts?per_page=100'
 headers = {
@@ -93,7 +95,7 @@ def plot_artifact_sizes(artifacts_to_size_map: Dict[str, List[int]]):
         sizes_mb = [bytes_to_megabytes(sizes[0] - size) for size in sizes]
         plt.subplots(figsize=(10, 4))
         plt.plot(sizes_mb, color=default_color)
-        plt.title(f'{name.removeprefix("NineMensMorris-").removesuffix("-artifact")}', color=default_color)
+        plt.title(f'{name.removeprefix(REMOVE_PREFIX).removesuffix(REMOVE_POSTFIX)}', color=default_color)
         plt.xlabel('Artifact Index', color=default_color)
         some_range = range(0, len(sizes), 1)
         plt.xticks(some_range)

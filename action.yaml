@@ -1,5 +1,5 @@
 name: "Plot artifacts size"
-description: "This action allows you to draw some plots"
+description: "This action allows you to draw some plots, it saves them to the ~/plot-artifacts"
 author: kroune
 
 inputs:
@@ -12,6 +12,14 @@ inputs:
   repository-name:
     description: "name of the repository"
     required: true
+  remove-prefix:
+    description: "prefix to remove"
+    required: false
+    default: "NineMensMorris-"
+  remove-postfix:
+    description: "prefix to remove"
+    required: false
+    default: "-artifact"
 
 runs:
   using: "composite"
@@ -26,3 +34,5 @@ runs:
         INPUT_GITHUB_TOKEN: ${{ inputs.github-token }}
         INPUT_REPOSITORY_OWNER: ${{ inputs.repository-owner }}
         INPUT_REPOSITORY_NAME: ${{ inputs.repository-name }}
+        INPUT_REMOVE_PREFIX: ${{ inputs.remove-prefix }}
+        INPUT_REMOVE_POSTFIX: ${{ inputs.remove-postfix }}
